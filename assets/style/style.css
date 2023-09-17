@@ -1,16 +1,17 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;500;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 /* variables */
-
+:root {
+  /* colors */
+  --primary-color: cadetblue;
+}
 /* reset */
 html {
   color-scheme: dark;
   font-size: 1rem;
 }
 body {
-  min-height: 100vh;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Press Start 2P", cursive;
 }
 *,
 *::before,
@@ -30,3 +31,63 @@ video {
   width: 100%;
 }
 /* layout */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+  margin: 3.5rem auto;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  gap: 2rem;
+}
+.result [class^="player-"],
+.result .tie {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.result [class^="player-"] [class^="score-"],
+.result .tie .tie-times {
+  align-self: center;
+}
+.cells {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 30rem;
+  width: 30rem;
+  gap: 1rem;
+}
+.cells [class^="cell-"],
+.general {
+  padding: 1rem;
+  border: 0.5rem solid black;
+  box-shadow: inset 0rem 0rem 1rem black;
+  border-radius: 0.2rem;
+  background-color: var(--primary-color);
+}
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4rem;
+}
+.display-turn {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 2rem;
+}
+.btn {
+  font-size: 2rem;
+  transition: all 0.3s;
+}
+.btn:hover {
+  cursor: pointer;
+  box-shadow: inset 0rem 0rem 0.5rem rgba(0, 0, 0, 0.695);
+}
