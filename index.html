@@ -7,5 +7,42 @@
     <link rel="stylesheet" href="assets/style/style.css" />
     <script src="assets/js/game.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <section class="result">
+        <!-- 0 means o -->
+        <!-- 1 means x -->
+        <div class="player-0 a">
+          <h2 class="general">PLAYER-O</h2>
+          <span class="score-player-0 general">00</span>
+        </div>
+        <div class="tie">
+          <h2 class="general">TIE</h2>
+          <span class="tie-times general">0</span>
+        </div>
+        <div class="player-1">
+          <h2 class="general">PLAYER-X</h2>
+          <span class="score-player-1 general">00</span>
+        </div>
+      </section>
+      <section class="cells">
+        <div class="cell-0"></div>
+        <div class="cell-1"></div>
+        <div class="cell-2"></div>
+        <div class="cell-3"></div>
+        <div class="cell-4"></div>
+        <div class="cell-5"></div>
+        <div class="cell-6"></div>
+        <div class="cell-7"></div>
+        <div class="cell-8"></div>
+      </section>
+    </div>
+    <footer class="bottom-section">
+      <section class="display-turn general">
+        <span class="player-turn">X</span>
+        TURN
+      </section>
+      <button type="button" class="new-game btn general">NEW GAME</button>
+    </footer>
+  </body>
 </html>
