@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TicTacToe</title>
     <link rel="stylesheet" href="assets/style/style.css" />
-    <script src="assets/js/game.js"></script>
   </head>
   <body>
     <div class="container">
       <section class="result">
         <!-- 0 means o -->
         <!-- 1 means x -->
-        <div class="player-0 a">
+        <div class="player-0">
           <h2 class="general">PLAYER-O</h2>
-          <span class="score-player-0 general">00</span>
+          <span class="score-player-0 general">0</span>
         </div>
         <div class="tie">
           <h2 class="general">TIE</h2>
@@ -22,7 +21,7 @@
         </div>
         <div class="player-1">
           <h2 class="general">PLAYER-X</h2>
-          <span class="score-player-1 general">00</span>
+          <span class="score-player-1 general">0</span>
         </div>
       </section>
       <section class="cells">
@@ -40,9 +39,10 @@
     <footer class="bottom-section">
       <section class="display-turn general">
         <span class="player-turn">X</span>
-        TURN
+        <span class="turn-message">TURN</span>
       </section>
-      <button type="button" class="new-game btn general">NEW GAME</button>
+      <button type="button" class="new-round btn general">NEW ROUND</button>
     </footer>
+    <script src="assets/js/game.js"></script>
   </body>
 </html>

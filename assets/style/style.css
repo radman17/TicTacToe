@@ -1,11 +1,16 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 /* variables */
 :root {
   /* colors */
-  --primary-color: #0e7490;
-  --secondary-color: #083344;
-  --text-color: #ecfeff;
+  --primary-color: #334155;
+  --secondary-color: #020617;
+  --text-color: #f8fafc;
+  --winning-color: #94a3b8;
+  /* font weight */
+  --thin-weight: 400;
+  --normal-weight: 600;
+  --bold-weight: 800;
 }
 /* reset */
 html {
@@ -13,7 +18,7 @@ html {
   font-size: 1rem;
 }
 body {
-  font-family: "Press Start 2P", cursive;
+  font-family: "Russo One", sans-serif;
   color: var(--text-color);
 }
 *,
@@ -70,6 +75,7 @@ body {
   width: 30rem;
   gap: 1rem;
 }
+
 .cells [class^="cell-"],
 .general {
   padding: 1rem;
@@ -78,6 +84,17 @@ body {
   border-radius: 0.5rem;
   background-color: var(--primary-color);
   color: inherit;
+}
+.cells [class^="cell-"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9rem;
+  height: 9rem;
+  font-size: 4rem;
+}
+.cells [class^="cell-"]:hover {
+  cursor: pointer;
 }
 .bottom-section {
   display: flex;
@@ -97,4 +114,21 @@ body {
 .btn:hover {
   cursor: pointer;
   box-shadow: inset 0rem 0rem 0.5rem rgba(0, 0, 0, 0.695);
+}
+.winning-on {
+  background-color: var(--winning-color) !important;
+}
+.shadow-beat-animation {
+  animation: beat 1s infinite;
+}
+@keyframes beat {
+  0% {
+    background-color: var(--primary-color);
+  }
+  50% {
+    background-color: var(--winning-color);
+  }
+  100% {
+    background-color: var(--primary-color);
+  }
 }
