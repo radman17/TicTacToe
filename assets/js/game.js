@@ -9,9 +9,9 @@ let tieTimes;
 let playerTurn;
 let winner;
 let playing;
-const playersScoreEls = document.querySelectorAll("[class^=score-player-]");
-console.log(playersScoreEls)
 
+
+const playersScoreEls = document.querySelectorAll("[class^=score-player-]");
 const tieTimesEl = document.querySelector(".tie-times");
 const cellEls = document.querySelectorAll("[class^=cell-]");
 const displayTurnEl = document.querySelector(".display-turn");
@@ -21,7 +21,6 @@ const newRoundBtn = document.querySelector('.new-round');
 
 // reset
 const int = function () {
-
     playing = true;
 
     playersScore[0] = 0;
@@ -47,7 +46,7 @@ const resetRound = function () {
     playerTurnEl.style.display = "inline";
     playerTurnEl.textContent = playerTurn === 0 ? "O" : "X";
     turnMessageEl.textContent = "TURN";
-    newRoundBtn.classList.remove('shadow-beat-animation');
+    newRoundBtn.classList.remove('beat-animation');
 }
 int();
 
@@ -80,13 +79,13 @@ for (let i = 0; i < cellEls.length; i++) {
                 cellsState[i] = playerTurn;
                 playerTurn = playerTurn === 0 ? 1 : 0;
                 playerTurnEl.textContent = playerTurn === 0 ? "O" : "X";
-                for (let i = 0; i < patternsToWin.length; i++) {
-                    const first = patternsToWin[i][0];
-                    const second = patternsToWin[i][1];
-                    const third = patternsToWin[i][2];
+                for (let j = 0; j < patternsToWin.length; j++) {
+                    const first = patternsToWin[j][0];
+                    const second = patternsToWin[j][1];
+                    const third = patternsToWin[j][2];
+                    // when a player wins
                     if (cellsState[first] !== null && cellsState[first] === cellsState[second] && cellsState[second] === cellsState[third]) {
                         winner = playerTurn === 0 ? 1 : 0;
-                        console.log(winner === 0 ? "O" : "X");
                         playersScore[winner]++;
                         playersScoreEls[winner].textContent = playersScore[winner];
                         cellEls[first].classList.add("winning-on");
@@ -95,17 +94,18 @@ for (let i = 0; i < cellEls.length; i++) {
                         displayTurnEl.classList.add('winning-on');
                         playerTurnEl.style.display = "none";
                         turnMessageEl.textContent = `PLAYER-${winner === 0 ? "O" : "X"} WON THIS ROUND`
-                        newRoundBtn.classList.add("shadow-beat-animation");
+                        newRoundBtn.classList.add("beat-animation");
                         playing = false;
                         return 0;
                     }
                 }
+                // when the result is draw
                 if (!cellsState.includes(null)) {
                     tieTimes++;
                     tieTimesEl.textContent = tieTimes;
                     playerTurnEl.style.display = "none";
                     turnMessageEl.textContent = `TIE`
-                    newRoundBtn.classList.add("shadow-beat-animation");
+                    newRoundBtn.classList.add("beat-animation");
                     playing = false;
                     return 0;
                 }

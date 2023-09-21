@@ -118,7 +118,7 @@ body {
 .winning-on {
   background-color: var(--winning-color) !important;
 }
-.shadow-beat-animation {
+.beat-animation {
   animation: beat 1s infinite;
 }
 @keyframes beat {
