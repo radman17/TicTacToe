@@ -56,8 +56,9 @@ body {
   display: flex;
   align-items: center;
   font-size: 2rem;
-  gap: 2rem;
+  gap: 1rem;
 }
+
 .result [class^="player-"],
 .result .tie {
   display: flex;
@@ -67,6 +68,28 @@ body {
 .result [class^="player-"] [class^="score-"],
 .result .tie .tie-times {
   align-self: center;
+}
+@media screen and (max-width: 38em) {
+  .container {
+    margin: 1rem 0;
+    gap: 1rem;
+  }
+  .cells {
+    padding: 0.5rem;
+  }
+  .result {
+    flex-direction: column;
+  }
+  .result [class^="player-"],
+  .result .tie {
+    width: 100%;
+    flex-direction: row;
+  }
+  .result [class^="player-"] *,
+  .result .tie * {
+    flex-grow: 1;
+    text-align: center;
+  }
 }
 .cells {
   display: grid;
@@ -100,6 +123,14 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 0 4rem;
+}
+@media screen and (max-width: 55em) {
+  .bottom-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
 }
 .display-turn {
   display: flex;
