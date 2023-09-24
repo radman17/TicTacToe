@@ -18,8 +18,6 @@ This is a very simple TicTacToe web game .
 
 - The game should be played against another person (playing against computer will be added later).
 
-- First player who starts the game is X and the other one is O .
-
 - You can mark each cell by clicking on it afterward its the next player turn.
 
 - The objective is to mark three cells in a row (horizontally , vertically , diagonally) before your opponent.
