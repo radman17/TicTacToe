@@ -1,5 +1,7 @@
 # TicTacToe
 
+https://radman17.github.io/TicTacToe/
+
 TicTacToe (web version) made using using HTML , CSS and JS.
 
 ## Table of contents
@@ -17,8 +19,6 @@ This is a very simple TicTacToe web game .
 ### How to play 
 
 - The game should be played against another person (playing against computer will be added later).
-
-- First player who starts the game is X and the other one is O .
 
 - You can mark each cell by clicking on it afterward its the next player turn.
 
