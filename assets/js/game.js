@@ -35,7 +35,7 @@ const int = function () {
     playerTurn = 0;
     playerTurnEl.textContent = playerTurn === 0 ? "O" : "X";
 }
-const resetRound = function () {
+const resetBoard = function () {
     playing = true;
     for (let i = 0; i < cellEls.length; i++) {
         cellEls[i].textContent = '';
@@ -115,4 +115,4 @@ for (let i = 0; i < cellEls.length; i++) {
     })
 }
 
-newRoundBtn.addEventListener("click", resetRound)
+newRoundBtn.addEventListener("click", resetBoard)
