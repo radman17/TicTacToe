@@ -1,16 +1,16 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 /* variables */
 :root {
   /* colors */
-  --primary-color: #334155;
-  --secondary-color: #020617;
-  --text-color: #f8fafc;
-  --winning-color: #94a3b8;
+  --primary-color: #fdebd3;
+  --secondary-color: #e8f2df;
+  --text-color: rgb(163, 163, 163);
+  --winning-color: #264e70;
   /* font weight */
   --thin-weight: 400;
   --normal-weight: 600;
-  --bold-weight: 800;
+  --bold-weight: 700;
 }
 /* reset */
 html {
@@ -18,8 +18,9 @@ html {
   font-size: 1rem;
 }
 body {
-  font-family: "Russo One", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: var(--text-color);
+  background-color: var(--secondary-color);
 }
 *,
 *::before,
@@ -38,37 +39,82 @@ video {
   display: block;
   width: 100%;
 }
-/* layout */
-body {
-  background-color: var(--secondary-color);
-}
+
+/* general */
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
   width: 100%;
-  margin: 3.5rem auto;
+  min-height: 100vh;
+  margin: auto;
+}
+.hidden {
+  display: none !important;
+}
+h1 {
+  font-weight: var(--bold-weight);
+}
+.btn {
+  background-color: #fdebd3;
+  font-weight: var(--bold-weight);
+  border-radius: 0.6rem;
+  padding: 1rem 2rem;
+  box-shadow: 0 0.2rem 0.1rem 0 #00000062;
+  font-size: 2rem;
+  color: inherit;
+  transition: all 0.1s;
+}
+.btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.btn:active {
+  box-shadow: 0 0rem 0rem 0 #00000062;
 }
 
+/* layout */
+
+/* choose mode component */
+
+.choose-mode-component .container > * {
+  display: flex;
+  width: 20rem;
+  font-size: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+.choose-mode-component .container .mode-title {
+  font-size: 5rem;
+}
+
+/* game component */
+.game-component .container {
+  gap: 6rem;
+}
 .result {
   display: flex;
   align-items: center;
-  font-size: 2rem;
+  box-shadow: 0 0.2rem 0.1rem 0 #00000062;
+  font-weight: var(--normal-weight);
+  font-size: 3rem;
+  gap: 1rem;
+  background-color: #fdebd3;
+  width: 100%;
+}
+
+.result [class^="player-"] {
+  border-bottom: 0.4rem solid rgba(0, 0, 0, 0);
+  padding: 2rem 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  flex-grow: 1;
   gap: 1rem;
 }
 
-.result [class^="player-"],
-.result .tie {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.result [class^="player-"] [class^="score-"],
-.result .tie .tie-times {
-  align-self: center;
-}
 @media screen and (max-width: 38em) {
   .container {
     margin: 1rem 0;
@@ -99,31 +145,28 @@ body {
   gap: 1rem;
 }
 
-.cells [class^="cell-"],
-.general {
-  padding: 1rem;
-  border: 0.4rem solid black;
-  box-shadow: inset 0rem 0rem 1rem black;
-  border-radius: 0.5rem;
-  background-color: var(--primary-color);
-  color: inherit;
-}
 .cells [class^="cell-"] {
+  box-shadow: 0 0.2rem 0.1rem 0 #00000062;
+  border-radius: 0.6rem;
+  background-color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 9rem;
   height: 9rem;
   font-size: 4rem;
+  color: inherit;
 }
 .cells [class^="cell-"]:hover {
   cursor: pointer;
 }
 .bottom-section {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: flex-end;
   padding: 0 4rem;
 }
+
 @media screen and (max-width: 55em) {
   .bottom-section {
     flex-direction: column;
@@ -131,20 +174,6 @@ body {
     gap: 1rem;
     padding-bottom: 1rem;
   }
-}
-.display-turn {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  font-size: 2rem;
-}
-.btn {
-  font-size: 2rem;
-  transition: all 0.3s;
-}
-.btn:hover {
-  cursor: pointer;
-  box-shadow: inset 0rem 0rem 0.5rem rgba(0, 0, 0, 0.695);
 }
 .winning-on {
   background-color: var(--winning-color) !important;
@@ -162,4 +191,37 @@ body {
   100% {
     background-color: var(--primary-color);
   }
+}
+
+.sign-0 {
+  display: inline-block;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 100%;
+  border: 1.2rem solid #679186;
+}
+
+.sign-1 {
+  position: relative;
+  display: inline-block;
+  width: 8rem;
+  height: 8rem;
+}
+
+.sign-1::before,
+.sign-1::after {
+  content: "";
+  position: absolute;
+  top: 37%;
+  left: -6%;
+  width: 9rem;
+  height: 2rem;
+  background-color: #f9b4ab;
+  border-radius: 0.8rem;
+}
+.sign-1::before {
+  transform: rotate(45deg);
+}
+.sign-1::after {
+  transform: rotate(-45deg);
 }
