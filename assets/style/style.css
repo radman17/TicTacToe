@@ -7,6 +7,8 @@
   --secondary-color: #e8f2df;
   --text-color: rgb(163, 163, 163);
   --winning-color: #264e70;
+  --sign-0-color: #679186;
+  --sign-1-color: #f9b4ab;
   /* font weight */
   --thin-weight: 400;
   --normal-weight: 600;
@@ -44,12 +46,13 @@ video {
 .container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
   min-height: 100vh;
   margin: auto;
+  overflow: hidden;
 }
 .hidden {
   display: none !important;
@@ -78,7 +81,9 @@ h1 {
 /* layout */
 
 /* choose mode component */
-
+.choose-mode-component .container {
+  justify-content: center;
+}
 .choose-mode-component .container > * {
   display: flex;
   width: 20rem;
@@ -93,20 +98,23 @@ h1 {
 /* game component */
 .game-component .container {
   gap: 6rem;
+  padding: clamp(2rem, 3vh, 4rem) 0;
 }
+
+/* score board */
 .result {
   display: flex;
   align-items: center;
   box-shadow: 0 0.2rem 0.1rem 0 #00000062;
   font-weight: var(--normal-weight);
   font-size: 3rem;
-  gap: 1rem;
   background-color: #fdebd3;
   width: 100%;
 }
-
-.result [class^="player-"] {
-  border-bottom: 0.4rem solid rgba(0, 0, 0, 0);
+.result [class^="player-"],
+.result .player,
+.result .computer {
+  border-bottom: 0.4rem solid rgba(158, 158, 158, 0.525);
   padding: 2rem 0;
   align-items: center;
   display: flex;
@@ -114,29 +122,17 @@ h1 {
   flex-grow: 1;
   gap: 1rem;
 }
-
-@media screen and (max-width: 38em) {
-  .container {
-    margin: 1rem 0;
-    gap: 1rem;
-  }
-  .cells {
-    padding: 0.5rem;
-  }
-  .result {
-    flex-direction: column;
-  }
-  .result [class^="player-"],
-  .result .tie {
-    width: 100%;
-    flex-direction: row;
-  }
-  .result [class^="player-"] *,
-  .result .tie * {
-    flex-grow: 1;
-    text-align: center;
-  }
+.result .player-0 h2,
+.result .player h2 {
+  color: var(--sign-0-color);
 }
+.result .player-1 h2,
+.result .computer h2 {
+  color: var(--sign-1-color);
+}
+/* score board */
+
+/* board style */
 .cells {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -144,7 +140,6 @@ h1 {
   width: 30rem;
   gap: 1rem;
 }
-
 .cells [class^="cell-"] {
   box-shadow: 0 0.2rem 0.1rem 0 #00000062;
   border-radius: 0.6rem;
@@ -154,27 +149,20 @@ h1 {
   justify-content: center;
   width: 9rem;
   height: 9rem;
-  font-size: 4rem;
-  color: inherit;
+  padding: 0.5rem;
 }
 .cells [class^="cell-"]:hover {
   cursor: pointer;
 }
+/* board style */
+
 .bottom-section {
   display: flex;
   width: 100%;
+  padding: 0 3rem;
   justify-content: flex-end;
-  padding: 0 4rem;
 }
 
-@media screen and (max-width: 55em) {
-  .bottom-section {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding-bottom: 1rem;
-  }
-}
 .winning-on {
   background-color: var(--winning-color) !important;
 }
@@ -193,29 +181,32 @@ h1 {
   }
 }
 
+/* 0 (O) sign style */
 .sign-0 {
   display: inline-block;
-  width: 8rem;
-  height: 8rem;
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
   border: 1.2rem solid #679186;
 }
+/* 0 (O) sign style */
 
+/* 1 (x) sign style */
 .sign-1 {
   position: relative;
   display: inline-block;
-  width: 8rem;
-  height: 8rem;
+  width: 100%;
+  height: 100%;
 }
 
 .sign-1::before,
 .sign-1::after {
   content: "";
   position: absolute;
-  top: 37%;
-  left: -6%;
-  width: 9rem;
-  height: 2rem;
+  top: 34%;
+  left: -7%;
+  width: 113%;
+  height: 32%;
   background-color: #f9b4ab;
   border-radius: 0.8rem;
 }
@@ -224,4 +215,54 @@ h1 {
 }
 .sign-1::after {
   transform: rotate(-45deg);
+}
+/* 1 (x) sign style */
+
+/*  media queries */
+@media screen and (max-width: 40em) {
+  .game-component .container {
+    gap: 2.5rem;
+  }
+
+  .result {
+    width: 10rem;
+    height: 5rem;
+  }
+  .result [class^="player-"],
+  .result .player,
+  .result .computer {
+    padding: 0;
+  }
+  .result h2 {
+    display: none;
+  }
+  .result .player-0 .score-player-0,
+  .result .player .score-player {
+    color: var(--sign-0-color);
+  }
+  .result .player-1 .score-player-1,
+  .result .computer .score-computer {
+    color: var(--sign-1-color);
+  }
+
+  .bottom-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+@media screen and (max-width: 31em) {
+  .cells {
+    width: 20rem;
+    height: 20rem;
+    /* gap: 1rem; */
+  }
+  .cells [class^="cell-"] {
+    width: 6rem;
+    height: 6rem;
+  }
+  .bottom-section .btn.reset-board {
+    font-size: 1.8rem;
+  }
 }
