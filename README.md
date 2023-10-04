@@ -24,7 +24,7 @@ This is a very simple TicTacToe web game .
 
 - The objective is to mark three cells in a row (horizontally , vertically , diagonally) before your opponent.
 
-- After each round you can reset the board by clicking NEW ROUND button.
+- After each round you can reset the board by clicking RESET BOARD button.
 
 ### How the game looks
 
