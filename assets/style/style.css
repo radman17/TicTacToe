@@ -97,7 +97,7 @@ h1 {
 
 /* game component */
 .game-component .container {
-  gap: 6rem;
+  gap: 4rem;
   padding: clamp(2rem, 3vh, 4rem) 0;
 }
 
@@ -129,6 +129,9 @@ h1 {
 .result .player-1 h2,
 .result .computer h2 {
   color: var(--sign-1-color);
+}
+.turn-on {
+  border-bottom: 0.4rem solid var(--winning-color) !important;
 }
 /* score board */
 

@@ -5,21 +5,43 @@
 // 1 means x
 
 // SELECTING 
-// components
+// Components
 const chooseGameModeComp = document.querySelector('.choose-mode-component');
 const gameComp = document.querySelector(".game-component");
-// elements
+// Elements
 const playerModeBtnEl = document.querySelector('.player-mode.btn');
 const computerModeBtnEl = document.querySelector('.computer-mode.btn');
 
+// result section
 const resultEl = document.querySelector(".result");
-const [resultChild0El, resultChild1El] = resultEl.children;
-const [name0El, score0El] = resultChild0El.children;
-const [name1El, score1El] = resultChild1El.children;
+const resultChildren = document.querySelectorAll('.result-child');
+const nameEls = document.querySelectorAll('.result-child h2');
+const scoreEls = document.querySelectorAll("[class^=score]");
+// cells section
+const cellsEl = document.querySelectorAll('[class^=cell-]');
+
 
 
 // VARIABLES
 let mode = null;
+let playing = false;
+// 0 means o
+// 1 means x
+let turn = null;
+const cellsArr = [null, null, null
+    , null, null, null
+    , null, null, null];
+const patternsToWin = [
+    [0, 1, 2],
+    [0, 4, 8],
+    [0, 3, 6],
+    [8, 5, 2],
+    [8, 7, 6],
+    [2, 4, 6],
+    [3, 4, 5],
+    [1, 4, 7],
+];
+const scores = [0, 0];
 
 
 // FUNCTIONS
@@ -27,25 +49,64 @@ const goToGamePage = function () {
     chooseGameModeComp.classList.add("hidden");
     gameComp.classList.remove("hidden");
 }
+const resetScoreEls = function () {
+    scoreEls[0].textContent = scores[0];
+    scoreEls[1].textContent = scores[1];
+}
+const changeTurn = function () {
+    resultChildren[turn].classList.remove("turn-on")
+    turn = turn === 0 ? 1 : 0;
+    resultChildren[turn].classList.add("turn-on")
+}
 
 
 
-
-
+// choose game mode
 playerModeBtnEl.addEventListener("click", function () {
     mode = 'player';
+    playing = true;
+    turn = Math.trunc(Math.random() * 10) % 2 === 0 ? 0 : 1;
+    resultChildren[turn].classList.add("turn-on")
     goToGamePage();
-    name0El.textContent = "PLAYER-1";
-    name1El.textContent = "PLAYER-2";
+    nameEls[0].textContent = "PLAYER-1";
+    nameEls[1].textContent = "PLAYER-2";
+    resetScoreEls()
 
 })
 computerModeBtnEl.addEventListener("click", function () {
     mode = "computer";
+    playing = true;
+    turn = Math.trunc(Math.random() * 10) % 2 === 0 ? 0 : 1;
+    resultChildren[turn].classList.add("turn-on")
     goToGamePage();
-    name0El.textContent = "PLAYER";
-    name1El.textContent = 'COMPUTER';
+    nameEls[0].textContent = "PLAYER";
+    nameEls[1].textContent = 'COMPUTER';
+    resetScoreEls()
 })
 
+for (let i = 0; i < cellsEl.length; i++) {
+    cellsEl[i].addEventListener("click", function () {
+        if (playing && mode === "player" && cellsArr[i] === null) {
+            cellsEl[i].insertAdjacentHTML("afterbegin", `<span class="sign-${turn}"></span>`);
+            cellsArr[i] = turn;
+            changeTurn()
+            // check if someone wins
+            for (let j = 0; j < patternsToWin.length; j++) {
+                const [firstCell, secondCell, thirdCell] = patternsToWin[j];
+                if (cellsArr[firstCell] !== null && cellsArr[firstCell] === cellsArr[secondCell] && cellsArr[secondCell] === cellsArr[thirdCell]) {
+                    let winner = turn === 0 ? 1 : 0;
+                    scoreEls[winner].textContent = ++scores[winner];
+                    cellsEl[firstCell].classList.add("winning-on");
+                    cellsEl[secondCell].classList.add("winning-on");
+                    cellsEl[thirdCell].classList.add("winning-on");
+                    playing = false;
+                    resultChildren[turn].classList.remove('turn-on');
+                    return 0;
+                }
+            }
+        }
+    })
+}
 
 
 
