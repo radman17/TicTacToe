@@ -11,7 +11,7 @@ const gameComp = document.querySelector(".game-component");
 // Elements
 const playerModeBtnEl = document.querySelector('.player-mode.btn');
 const computerModeBtnEl = document.querySelector('.computer-mode.btn');
-
+const resetBoardBtnEl = document.querySelector('.reset-board');
 // result section
 const resultEl = document.querySelector(".result");
 const resultChildren = document.querySelectorAll('.result-child');
@@ -99,6 +99,8 @@ for (let i = 0; i < cellsEl.length; i++) {
                     cellsEl[firstCell].classList.add("winning-on");
                     cellsEl[secondCell].classList.add("winning-on");
                     cellsEl[thirdCell].classList.add("winning-on");
+                    resultChildren[winner].classList.add('winning-on');
+                    resetBoardBtnEl.classList.add("beat-animation")
                     playing = false;
                     resultChildren[turn].classList.remove('turn-on');
                     return 0;
@@ -109,7 +111,9 @@ for (let i = 0; i < cellsEl.length; i++) {
 }
 
 
+resetBoardBtnEl.addEventListener("click", function () {
 
+})
 
 
 
