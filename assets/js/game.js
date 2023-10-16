@@ -105,6 +105,10 @@ for (let i = 0; i < cellsEl.length; i++) {
                     playing = false;
                     resultChildren[turn].classList.remove('turn-on');
                     return 0;
+                } else if (!cellsArr.includes(null)) {
+                    playing = false;
+                    resultChildren[turn].classList.remove('turn-on');
+                    resetBoardBtnEl.classList.add("beat-animation");
                 }
             }
         }
