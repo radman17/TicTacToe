@@ -27,6 +27,7 @@ let mode = null;
 let playing = false;
 // 0 means o
 // 1 means x
+let winner = null;
 let turn = null;
 const cellsArr = [null, null, null
     , null, null, null
@@ -94,7 +95,7 @@ for (let i = 0; i < cellsEl.length; i++) {
             for (let j = 0; j < patternsToWin.length; j++) {
                 const [firstCell, secondCell, thirdCell] = patternsToWin[j];
                 if (cellsArr[firstCell] !== null && cellsArr[firstCell] === cellsArr[secondCell] && cellsArr[secondCell] === cellsArr[thirdCell]) {
-                    let winner = turn === 0 ? 1 : 0;
+                    winner = turn === 0 ? 1 : 0;
                     scoreEls[winner].textContent = ++scores[winner];
                     cellsEl[firstCell].classList.add("winning-on");
                     cellsEl[secondCell].classList.add("winning-on");
@@ -112,7 +113,15 @@ for (let i = 0; i < cellsEl.length; i++) {
 
 
 resetBoardBtnEl.addEventListener("click", function () {
-
+    playing = true;
+    for (let i = 0; i < 9; i++) {
+        cellsArr[i] = null;
+        cellsEl[i].innerHTML = '';
+        cellsEl[i].classList.remove("winning-on");
+    }
+    resultChildren[winner].classList.remove('winning-on');
+    resultChildren[turn].classList.add('turn-on');
+    resetBoardBtnEl.classList.remove("beat-animation");
 })
 
 
