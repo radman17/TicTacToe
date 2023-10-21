@@ -50,6 +50,32 @@ const goToGamePage = function () {
     chooseGameModeComp.classList.add("hidden");
     gameComp.classList.remove("hidden");
 }
+const startPlaying = function () {
+    playing = true;
+    turn = Math.trunc(Math.random() * 10) % 2 === 0 ? 0 : 1;
+    resultChildren[turn].classList.add("turn-on");
+}
+const stopPlaying = function () {
+    playing = false;
+    resultChildren[turn].classList.remove('turn-on');
+    resetBoardBtnEl.classList.add("beat-animation");
+}
+const checkForWin = function () {
+    for (let i = 0; i < patternsToWin.length; i++) {
+        const [firstCell, secondCell, thirdCell] = patternsToWin[i];
+        if (cellsArr[firstCell] !== null && cellsArr[firstCell] === cellsArr[secondCell] && cellsArr[secondCell] === cellsArr[thirdCell]) {
+            stopPlaying();
+            winner = turn === 0 ? 1 : 0;
+            scoreEls[winner].textContent = ++scores[winner];
+            cellsEl[firstCell].classList.add("winning-on");
+            cellsEl[secondCell].classList.add("winning-on");
+            cellsEl[thirdCell].classList.add("winning-on");
+            resultChildren[winner].classList.add('winning-on');
+        } else if (!cellsArr.includes(null)) {
+            stopPlaying();
+        }
+    }
+}
 const resetScoreEls = function () {
     scoreEls[0].textContent = scores[0];
     scoreEls[1].textContent = scores[1];
@@ -65,10 +91,8 @@ const changeTurn = function () {
 // choose game mode
 playerModeBtnEl.addEventListener("click", function () {
     mode = 'player';
-    playing = true;
-    turn = Math.trunc(Math.random() * 10) % 2 === 0 ? 0 : 1;
-    resultChildren[turn].classList.add("turn-on")
     goToGamePage();
+    startPlaying();
     nameEls[0].textContent = "PLAYER-1";
     nameEls[1].textContent = "PLAYER-2";
     resetScoreEls()
@@ -76,10 +100,8 @@ playerModeBtnEl.addEventListener("click", function () {
 })
 computerModeBtnEl.addEventListener("click", function () {
     mode = "computer";
-    playing = true;
-    turn = Math.trunc(Math.random() * 10) % 2 === 0 ? 0 : 1;
-    resultChildren[turn].classList.add("turn-on")
     goToGamePage();
+    startPlaying();
     nameEls[0].textContent = "PLAYER";
     nameEls[1].textContent = 'COMPUTER';
     resetScoreEls()
@@ -87,29 +109,14 @@ computerModeBtnEl.addEventListener("click", function () {
 
 for (let i = 0; i < cellsEl.length; i++) {
     cellsEl[i].addEventListener("click", function () {
-        if (playing && mode === "player" && cellsArr[i] === null) {
-            cellsEl[i].insertAdjacentHTML("afterbegin", `<span class="sign-${turn}"></span>`);
-            cellsArr[i] = turn;
-            changeTurn()
-            // check if someone wins
-            for (let j = 0; j < patternsToWin.length; j++) {
-                const [firstCell, secondCell, thirdCell] = patternsToWin[j];
-                if (cellsArr[firstCell] !== null && cellsArr[firstCell] === cellsArr[secondCell] && cellsArr[secondCell] === cellsArr[thirdCell]) {
-                    winner = turn === 0 ? 1 : 0;
-                    scoreEls[winner].textContent = ++scores[winner];
-                    cellsEl[firstCell].classList.add("winning-on");
-                    cellsEl[secondCell].classList.add("winning-on");
-                    cellsEl[thirdCell].classList.add("winning-on");
-                    resultChildren[winner].classList.add('winning-on');
-                    resetBoardBtnEl.classList.add("beat-animation")
-                    playing = false;
-                    resultChildren[turn].classList.remove('turn-on');
-                    return 0;
-                } else if (!cellsArr.includes(null)) {
-                    playing = false;
-                    resultChildren[turn].classList.remove('turn-on');
-                    resetBoardBtnEl.classList.add("beat-animation");
-                }
+        // player mode
+        if (playing && cellsArr[i] === null) {
+            if (mode === "player") {
+                cellsEl[i].insertAdjacentHTML("afterbegin", `<span class="sign-${turn}"></span>`);
+                cellsArr[i] = turn;
+                changeTurn();
+                // check for win
+                checkForWin();
             }
         }
     })
