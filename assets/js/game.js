@@ -113,8 +113,8 @@ computerModeBtnEl.addEventListener("click", function () {
     nameEls[1].textContent = 'COMPUTER';
     if (turn === 1) {
         let randomCell = Math.trunc(Math.random() * 9);
-
-
+        markCell(randomCell);
+        changeTurn();
     }
 })
 
@@ -127,6 +127,60 @@ for (let i = 0; i < cellsEl.length; i++) {
                 changeTurn();
                 // check for win
                 checkForWin();
+            } else if (mode === "computer") {
+                if (turn === 0) {
+                    markCell(i);
+                    changeTurn();
+                    checkForWin();
+                }
+                // computer decides where to cell :
+
+
+                for (let j = 0; j < patternsToWin.length; j++) {
+                    const threeCellsIndex = patternsToWin[j];
+                    const threeCellsValue = [cellsArr[threeCellsIndex[0]], cellsArr[threeCellsIndex[1]], cellsArr[threeCellsIndex[2]]];
+                    if (threeCellsValue.filter(cell => cell === 0).length === 2 && threeCellsValue.includes(null)) {
+                        markCell(threeCellsIndex[threeCellsValue.indexOf(null)]);
+                        changeTurn();
+                        checkForWin();
+                        return 0;
+                    }
+                }
+
+                for (let j = 0; j < patternsToWin.length; j++) {
+                    const threeCellsIndex = patternsToWin[j];
+                    const threeCellsValue = [cellsArr[threeCellsIndex[0]], cellsArr[threeCellsIndex[1]], cellsArr[threeCellsIndex[2]]];
+                    if (threeCellsValue.filter(cell => cell === 1).length === 2 && threeCellsValue.includes(null)) {
+                        markCell(threeCellsIndex[threeCellsValue.indexOf(null)]);
+                        changeTurn();
+                        checkForWin();
+                        return 0;
+                    }
+                }
+
+                for (let j = 0; j < patternsToWin.length; j++) {
+                    const threeCellsIndex = patternsToWin[j];
+                    const threeCellsValue = [cellsArr[threeCellsIndex[0]], cellsArr[threeCellsIndex[1]], cellsArr[threeCellsIndex[2]]];
+                    if (threeCellsValue.filter(cell => cell === 1).length === 1 && threeCellsValue.includes(null)) {
+                        markCell(threeCellsIndex[threeCellsValue.indexOf(null)]);
+                        changeTurn();
+                        checkForWin();
+                        return 0;
+                    }
+                }
+
+                if (cellsArr.includes(null)) {
+                    let randomCell = Math.trunc(Math.random() * 9);
+                    while (cellsArr[randomCell] !== null) {
+                        randomCell = Math.trunc(Math.random() * 9);
+                    }
+                    markCell(randomCell);
+                    changeTurn();
+                    checkForWin();
+                }
+
+
+
             }
         }
     })
