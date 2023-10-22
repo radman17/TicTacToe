@@ -80,6 +80,11 @@ const resetScoreEls = function () {
     scoreEls[0].textContent = scores[0];
     scoreEls[1].textContent = scores[1];
 }
+// must be used befor switching turn
+const markCell = function (cellIndex) {
+    cellsArr[cellIndex] = turn;
+    cellsEl[cellIndex].insertAdjacentHTML("afterbegin", `<span class="sign-${turn}"></span>`);
+}
 const changeTurn = function () {
     resultChildren[turn].classList.remove("turn-on")
     turn = turn === 0 ? 1 : 0;
@@ -93,18 +98,24 @@ playerModeBtnEl.addEventListener("click", function () {
     mode = 'player';
     goToGamePage();
     startPlaying();
+    resetScoreEls();
     nameEls[0].textContent = "PLAYER-1";
     nameEls[1].textContent = "PLAYER-2";
-    resetScoreEls()
+
 
 })
 computerModeBtnEl.addEventListener("click", function () {
     mode = "computer";
     goToGamePage();
     startPlaying();
+    resetScoreEls()
     nameEls[0].textContent = "PLAYER";
     nameEls[1].textContent = 'COMPUTER';
-    resetScoreEls()
+    if (turn === 1) {
+        let randomCell = Math.trunc(Math.random() * 9);
+
+
+    }
 })
 
 for (let i = 0; i < cellsEl.length; i++) {
@@ -112,8 +123,7 @@ for (let i = 0; i < cellsEl.length; i++) {
         // player mode
         if (playing && cellsArr[i] === null) {
             if (mode === "player") {
-                cellsEl[i].insertAdjacentHTML("afterbegin", `<span class="sign-${turn}"></span>`);
-                cellsArr[i] = turn;
+                markCell(i);
                 changeTurn();
                 // check for win
                 checkForWin();
