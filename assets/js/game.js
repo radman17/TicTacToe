@@ -71,8 +71,10 @@ const checkForWin = function () {
             cellsEl[secondCell].classList.add("winning-on");
             cellsEl[thirdCell].classList.add("winning-on");
             resultChildren[winner].classList.add('winning-on');
+            return 1;
         } else if (!cellsArr.includes(null)) {
             stopPlaying();
+            return 1;
         }
     }
 }
@@ -86,11 +88,17 @@ const markCell = function (cellIndex) {
     cellsEl[cellIndex].insertAdjacentHTML("afterbegin", `<span class="sign-${turn}"></span>`);
 }
 const changeTurn = function () {
-    resultChildren[turn].classList.remove("turn-on")
+    resultChildren[turn].classList.remove("turn-on");
     turn = turn === 0 ? 1 : 0;
-    resultChildren[turn].classList.add("turn-on")
+    resultChildren[turn].classList.add("turn-on");
 }
-
+const markRandomEmptyCell = function () {
+    let randomCell = Math.trunc(Math.random() * 9);
+    while (cellsArr[randomCell] !== null) {
+        randomCell = Math.trunc(Math.random() * 9);
+    }
+    markCell(randomCell);
+}
 
 
 // choose game mode
@@ -112,8 +120,7 @@ computerModeBtnEl.addEventListener("click", function () {
     nameEls[0].textContent = "PLAYER";
     nameEls[1].textContent = 'COMPUTER';
     if (turn === 1) {
-        let randomCell = Math.trunc(Math.random() * 9);
-        markCell(randomCell);
+        markRandomEmptyCell();
         changeTurn();
     }
 })
@@ -126,12 +133,16 @@ for (let i = 0; i < cellsEl.length; i++) {
                 markCell(i);
                 changeTurn();
                 // check for win
-                checkForWin();
+
+                checkForWin()
             } else if (mode === "computer") {
                 if (turn === 0) {
                     markCell(i);
                     changeTurn();
-                    checkForWin();
+                    if (checkForWin()) {
+                        return 0;
+                    }
+
                 }
                 // computer decides where to cell :
 
@@ -170,11 +181,7 @@ for (let i = 0; i < cellsEl.length; i++) {
                 }
 
                 if (cellsArr.includes(null)) {
-                    let randomCell = Math.trunc(Math.random() * 9);
-                    while (cellsArr[randomCell] !== null) {
-                        randomCell = Math.trunc(Math.random() * 9);
-                    }
-                    markCell(randomCell);
+                    markRandomEmptyCell();
                     changeTurn();
                     checkForWin();
                 }
@@ -189,10 +196,15 @@ for (let i = 0; i < cellsEl.length; i++) {
 
 resetBoardBtnEl.addEventListener("click", function () {
     playing = true;
+
     for (let i = 0; i < 9; i++) {
         cellsArr[i] = null;
         cellsEl[i].innerHTML = '';
         cellsEl[i].classList.remove("winning-on");
+    }
+    if (turn === 1 && mode === "computer") {
+        markRandomEmptyCell();
+        changeTurn();
     }
     resultChildren[0].classList.remove('winning-on');
     resultChildren[1].classList.remove('winning-on');
