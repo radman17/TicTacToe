@@ -72,10 +72,11 @@ const checkForWin = function () {
             cellsEl[thirdCell].classList.add("winning-on");
             resultChildren[winner].classList.add('winning-on');
             return 1;
-        } else if (!cellsArr.includes(null)) {
-            stopPlaying();
-            return 1;
         }
+    }
+    if (!cellsArr.includes(null)) {
+        stopPlaying();
+        return 1;
     }
 }
 const resetScoreEls = function () {
@@ -134,7 +135,7 @@ for (let i = 0; i < cellsEl.length; i++) {
                 changeTurn();
                 // check for win
 
-                checkForWin()
+                checkForWin();
             } else if (mode === "computer") {
                 if (turn === 0) {
                     markCell(i);
@@ -147,10 +148,12 @@ for (let i = 0; i < cellsEl.length; i++) {
                 // computer decides where to cell :
 
 
+
+
                 for (let j = 0; j < patternsToWin.length; j++) {
                     const threeCellsIndex = patternsToWin[j];
                     const threeCellsValue = [cellsArr[threeCellsIndex[0]], cellsArr[threeCellsIndex[1]], cellsArr[threeCellsIndex[2]]];
-                    if (threeCellsValue.filter(cell => cell === 0).length === 2 && threeCellsValue.includes(null)) {
+                    if (threeCellsValue.filter(cell => cell === 1).length === 2 && threeCellsValue.includes(null)) {
                         markCell(threeCellsIndex[threeCellsValue.indexOf(null)]);
                         changeTurn();
                         checkForWin();
@@ -161,7 +164,7 @@ for (let i = 0; i < cellsEl.length; i++) {
                 for (let j = 0; j < patternsToWin.length; j++) {
                     const threeCellsIndex = patternsToWin[j];
                     const threeCellsValue = [cellsArr[threeCellsIndex[0]], cellsArr[threeCellsIndex[1]], cellsArr[threeCellsIndex[2]]];
-                    if (threeCellsValue.filter(cell => cell === 1).length === 2 && threeCellsValue.includes(null)) {
+                    if (threeCellsValue.filter(cell => cell === 0).length === 2 && threeCellsValue.includes(null)) {
                         markCell(threeCellsIndex[threeCellsValue.indexOf(null)]);
                         changeTurn();
                         checkForWin();
