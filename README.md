@@ -8,7 +8,7 @@ TicTacToe (web version) made using using HTML , CSS and JS.
 
 * [About The Project](#about-the-project)
 
-* [Thech Stack](#tech-stack) 
+* [Tech Stack](#tech-stack) 
 
 * [Getting Started](#getting-started)
 
@@ -18,9 +18,9 @@ This is a very simple TicTacToe web game .
 
 ### How to play 
 
-- The game should be played against another person (playing against computer will be added later).
+- You can playe the game in two modes (player & computer)
 
-- You can mark each cell by clicking on it afterward its the next player turn.
+- You can mark each cell by clicking on it, afterward its the next player turn.
 
 - The objective is to mark three cells in a row (horizontally , vertically , diagonally) before your opponent.
 
@@ -28,9 +28,15 @@ This is a very simple TicTacToe web game .
 
 ### How the game looks
 
-![](TicTacToe-screenshot.png)
+ Mode page :
 
-## Thech Stack
+![](mode-page-ss.jpg)
+
+ Game page :
+
+![](game-page-ss.jpg)
+
+## Tech Stack
 
 * HTML
 * CSS
