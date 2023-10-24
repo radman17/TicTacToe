@@ -134,7 +134,6 @@ for (let i = 0; i < cellsEl.length; i++) {
                 markCell(i);
                 changeTurn();
                 // check for win
-
                 checkForWin();
             } else if (mode === "computer") {
                 if (turn === 0) {
