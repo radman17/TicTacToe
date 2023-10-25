@@ -18,7 +18,7 @@ This is a very simple TicTacToe web game .
 
 ### How to play 
 
-- You can playe the game in two modes (player & computer)
+- You can play the game in two modes (player & computer)
 
 - You can mark each cell by clicking on it, afterward its the next player turn.
 
